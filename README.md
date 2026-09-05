@@ -9,7 +9,7 @@ language as a source of evidence whose relevance, credibility, strategic risk,
 and downstream utility must be estimated before it affects an action.
 
 
-## Method at a glance
+## Method
 
 ```mermaid
 flowchart TD
@@ -69,9 +69,7 @@ bash scripts/setup_taxai.sh
 
 For the paper-scale language stack, ensure that the Qwen3-32B and BGE-M3 model
 weights are locally accessible, then edit `configs/base.yaml` if their model IDs
-or paths differ. Full runs require substantial GPU memory. A smaller model may
-be supplied for engineering tests, but such a run is not paper-comparable.
-
+or paths differ. Full runs require substantial GPU memory.
 ```bash
 trace-map train \
   --config configs/base.yaml \
