@@ -1,0 +1,3 @@
+ablation:
+  opponent_belief: false
+  behavioral_refinement: false

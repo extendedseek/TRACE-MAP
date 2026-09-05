@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use TRACE-MAP, please cite the accompanying manuscript."
+title: "TRACE-MAP: Trust-Aware Attribution and Counterfactual Credibility in Language-Guided Multi-Agent Economic Policy Learning"
+type: software
+version: 0.1.0
+date-released: 2026-09-04
+authors:
+  - family-names: Alsadhan
+    given-names: "Nasser A."
+    email: nsadhan@ksu.edu.sa
+preferred-citation:
+  type: article
+  title: "Who Said What, and Did It Help? Trust-Aware Attribution and Counterfactual Credibility in Language-Guided Multi-Agent Economic Policy Learning"
+  authors:
+    - family-names: Alsadhan
+      given-names: "Nasser A."
+  year: 2026

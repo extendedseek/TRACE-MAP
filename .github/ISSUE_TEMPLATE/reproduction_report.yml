@@ -1,0 +1,35 @@
+name: Reproduction report
+description: Report a completed multi-seed reproduction attempt
+title: "[Reproduction]: "
+labels: [reproduction]
+body:
+  - type: dropdown
+    id: level
+    attributes:
+      label: Reproducibility level
+      options:
+        - Level 1 structural verification
+        - Level 2 method reimplementation
+        - Level 3 numerical reproduction
+    validations:
+      required: true
+  - type: textarea
+    id: revisions
+    attributes:
+      label: Revisions and models
+      description: TRACE-MAP commit, TaxAI commit, Qwen revision, and BGE revision.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Link resolved configs, five per-seed logs, aggregate table, and hardware metadata.
+    validations:
+      required: true
+  - type: textarea
+    id: differences
+    attributes:
+      label: Differences from the manuscript protocol
+    validations:
+      required: true

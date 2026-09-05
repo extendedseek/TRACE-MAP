@@ -1,0 +1,2 @@
+# Core plus numerical training dependencies.
+-e .[train]

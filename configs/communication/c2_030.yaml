@@ -1,0 +1,5 @@
+communication:
+  condition: c2
+  factual_corruption_rate: 0.0
+  strategic_deviation_rate: 0.30  # manuscript
+  persistent_reliability: []

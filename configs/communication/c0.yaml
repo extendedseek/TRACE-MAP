@@ -1,0 +1,5 @@
+communication:
+  condition: c0
+  factual_corruption_rate: 0.0
+  strategic_deviation_rate: 0.0
+  persistent_reliability: []

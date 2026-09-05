@@ -1,0 +1,143 @@
+run:
+  name: trace_map
+  seed: 0                         # implementation_default; paper reports five seeds
+  device: cuda                    # implementation_default
+  deterministic: true
+
+environment:
+  backend: taxai
+  households: 10                  # manuscript
+  episode_length: 300             # manuscript
+  task: social_welfare            # implementation_default; not fixed in manuscript
+  taxai_repo: third_party/TaxAI
+  taxai_config: cfg/default.yaml
+  taxai_commit: 04e7cb17071d942366eb0cad4fb4ba57d02bf612
+  condition: e1
+  depreciation_rate: 0.055        # manuscript E1
+  consumption_tax_rate: 0.055     # manuscript E1
+  interest_rate: 0.035            # manuscript E1
+  shift:
+    enabled: false
+    step: 150                     # manuscript
+    target: e3
+
+language:
+  generator_backend: huggingface
+  generator_model: Qwen/Qwen3-32B # manuscript family; revision must be pinned by author
+  generator_revision: main        # implementation_default
+  encoder_backend: sentence_transformers
+  encoder_model: BAAI/bge-m3      # manuscript
+  encoder_revision: main          # implementation_default
+  prompt_file: null               # packaged reconstruction prompts; original prompts unavailable
+  trust_remote_code: false
+  embedding_dim: 64               # manuscript
+  reasoning_max_tokens: 256       # manuscript
+  message_max_tokens: 96          # manuscript
+  temperature: 0.6                # manuscript
+  top_p: 0.9                      # manuscript
+  deterministic_tasks: true       # manuscript for extraction/verification/credit
+
+memory:
+  candidate_count: 12             # manuscript B
+  selected_count: 4               # manuscript K
+  capacity_per_agent: 320         # manuscript
+  reliability_ema: 0.95           # manuscript
+  semantic_weight: 1.0            # implicit in Eq. 2
+  regime_weight: 1.0              # implementation_default
+  reliability_weight: 0.5         # implementation_default
+  age_weight: 0.05                # implementation_default
+  gumbel_temperature: 0.7         # implementation_default
+  unused_penalty: 0.02            # implementation_default
+
+reasoning:
+  long_interval: 60               # manuscript
+  epsilon: 1.0e-8
+  shock_quantile: 0.90            # manuscript
+  shock_thresholds: null           # calibrate on training changes; fixed values allowed
+  communicate_on_short_shock: true
+
+communication:
+  condition: c0
+  message_candidates: 4           # manuscript M
+  sampled_deviations: 6           # manuscript R
+  retained_senders: 4             # manuscript S
+  counterfactual_horizon: 15      # manuscript K_cf
+  factual_corruption_rate: 0.0
+  strategic_deviation_rate: 0.0
+  persistent_reliability: []
+  trust_threshold: 0.50            # implementation_default
+  quality_weights:                 # implementation_default coefficients for Eq. 4
+    factuality: 1.0
+    influence: 0.7
+    strategic_risk: 1.2
+    redundancy: 0.1
+    length: 0.05
+  risk_weights:                    # implementation_default Bait/Switch/Edge mapping
+    bait: 0.5
+    switch: 1.0
+    edge: 0.7
+    inconsistency: 1.0
+
+opponent:
+  profile_count: 5                # manuscript
+  weak_likelihood_mix: 1.0        # credibility directly controls uniform mixing
+  behavioral_update_strength: 1.0 # implementation_default
+  deviation_tolerance: 0.01       # implementation_default epsilon_dev
+
+model:
+  actor_hidden: [256, 256, 128]    # manuscript
+  critic_hidden: [256, 256, 128]   # manuscript
+  auxiliary_hidden: [128, 64]      # implementation_default
+  activation: relu
+  action_noise: 0.10               # implementation_default
+
+training:
+  total_environment_steps: 300000 # manuscript
+  exploratory_steps: 10000         # manuscript
+  replay_capacity: 500000          # manuscript
+  batch_size: 256                  # manuscript
+  discount: 0.99                   # manuscript beta
+  polyak: 0.01                     # manuscript
+  actor_lr: 1.0e-4                 # manuscript
+  critic_lr: 2.0e-4                # manuscript
+  auxiliary_lr: 2.0e-4             # implementation_default
+  update_every: 1                  # implementation_default
+  gradient_steps: 1                # implementation_default
+  text_update_episodes: 12         # manuscript U_text
+  checkpoint_every: 25000          # implementation_default
+  max_grad_norm: 1.0               # implementation_default
+  loss_weights:                    # implementation_default values for Eq. 11
+    actor: 1.0
+    selector: 0.2
+    surrogate: 0.2
+    belief: 0.2
+    deviation: 0.1
+    credibility: 0.2
+    influence: 0.1
+    memory: 0.1
+
+evaluation:
+  seeds: [0, 1, 2, 3, 4]          # implementation_default identities; manuscript says five
+  episodes: 20                     # implementation_default
+  harmful_message_label_source: counterfactual_rollout
+  useful_memory_rollouts: true
+  recovery_window: 10              # implementation_default
+  recovery_fraction: 0.95          # implementation_default
+
+ablation:
+  memory: true
+  regime_compatibility: true
+  memory_reliability: true
+  staleness_penalty: true
+  memory_attribution: true
+  factuality: true
+  counterfactual_credibility: true
+  commitment_consistency: true
+  credibility_gated_influence: true
+  opponent_belief: true
+  behavioral_refinement: true
+  deviation_regularizer: true
+  trust_gated_fusion: true
+  language_credit: true
+  textual_revision: true
+  two_timescale: true

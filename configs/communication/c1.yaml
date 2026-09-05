@@ -1,0 +1,5 @@
+communication:
+  condition: c1
+  factual_corruption_rate: 0.30   # implementation_default; manuscript does not state rate
+  strategic_deviation_rate: 0.0
+  persistent_reliability: []

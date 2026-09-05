@@ -1,0 +1,38 @@
+name: Bug report
+description: Report a reproducible implementation problem
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Problem
+      description: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction command
+      description: Include the exact command, config overlays, and dotted overrides.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: metadata
+    attributes:
+      label: Run metadata
+      description: Paste run_metadata.json and the relevant traceback. Remove credentials.
+      render: json
+    validations:
+      required: true
+  - type: dropdown
+    id: backend
+    attributes:
+      label: Backend
+      options:
+        - Mock economy / template language
+        - TaxAI / template language
+        - TaxAI / Qwen and BGE
+    validations:
+      required: true

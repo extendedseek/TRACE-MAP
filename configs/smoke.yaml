@@ -1,0 +1,135 @@
+run:
+  name: trace_map_smoke
+  seed: 7
+  device: cpu
+  deterministic: true
+
+environment:
+  backend: mock
+  households: 3                   # smoke_only
+  episode_length: 12              # smoke_only
+  task: social_welfare
+  condition: e1
+  depreciation_rate: 0.055
+  consumption_tax_rate: 0.055
+  interest_rate: 0.035
+  shift:
+    enabled: true
+    step: 6
+    target: e3
+
+language:
+  generator_backend: template
+  encoder_backend: hashing
+  prompt_file: null
+  embedding_dim: 16               # smoke_only
+  reasoning_max_tokens: 96
+  message_max_tokens: 48
+  temperature: 0.0
+  top_p: 1.0
+  deterministic_tasks: true
+
+memory:
+  candidate_count: 4
+  selected_count: 2
+  capacity_per_agent: 12
+  reliability_ema: 0.9
+  semantic_weight: 1.0
+  regime_weight: 1.0
+  reliability_weight: 0.5
+  age_weight: 0.05
+  gumbel_temperature: 0.7
+  unused_penalty: 0.02
+
+reasoning:
+  long_interval: 4
+  epsilon: 1.0e-8
+  shock_quantile: 0.90
+  shock_thresholds: [0.05, 0.05, 0.05, 0.05, 0.05, 0.05]
+  communicate_on_short_shock: true
+
+communication:
+  condition: c2
+  message_candidates: 2
+  sampled_deviations: 3
+  retained_senders: 2
+  counterfactual_horizon: 3
+  factual_corruption_rate: 0.0
+  strategic_deviation_rate: 0.3
+  persistent_reliability: []
+  trust_threshold: 0.5
+  quality_weights:
+    factuality: 1.0
+    influence: 0.7
+    strategic_risk: 1.2
+    redundancy: 0.1
+    length: 0.05
+  risk_weights:
+    bait: 0.5
+    switch: 1.0
+    edge: 0.7
+    inconsistency: 1.0
+
+opponent:
+  profile_count: 5
+  weak_likelihood_mix: 1.0
+  behavioral_update_strength: 1.0
+  deviation_tolerance: 0.01
+
+model:
+  actor_hidden: [32, 32]
+  critic_hidden: [64, 32]
+  auxiliary_hidden: [32, 16]
+  activation: relu
+  action_noise: 0.05
+
+training:
+  total_environment_steps: 32
+  exploratory_steps: 4
+  replay_capacity: 256
+  batch_size: 8
+  discount: 0.99
+  polyak: 0.01
+  actor_lr: 1.0e-4
+  critic_lr: 2.0e-4
+  auxiliary_lr: 2.0e-4
+  update_every: 1
+  gradient_steps: 1
+  text_update_episodes: 2
+  checkpoint_every: 16
+  max_grad_norm: 1.0
+  loss_weights:
+    actor: 1.0
+    selector: 0.2
+    surrogate: 0.2
+    belief: 0.2
+    deviation: 0.1
+    credibility: 0.2
+    influence: 0.1
+    memory: 0.1
+
+evaluation:
+  seeds: [7]
+  episodes: 1
+  harmful_message_label_source: counterfactual_rollout
+  useful_memory_rollouts: true
+  recovery_window: 2
+  recovery_fraction: 0.90
+
+ablation:
+  memory: true
+  regime_compatibility: true
+  memory_reliability: true
+  staleness_penalty: true
+  memory_attribution: true
+  factuality: true
+  counterfactual_credibility: true
+  commitment_consistency: true
+  credibility_gated_influence: true
+  opponent_belief: true
+  behavioral_refinement: true
+  deviation_regularizer: true
+  trust_gated_fusion: true
+  language_credit: true
+  textual_revision: true
+  two_timescale: true

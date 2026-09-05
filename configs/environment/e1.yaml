@@ -1,0 +1,7 @@
+environment:
+  condition: e1
+  depreciation_rate: 0.055
+  consumption_tax_rate: 0.055
+  interest_rate: 0.035
+  shift:
+    enabled: false
