@@ -145,11 +145,6 @@ Each YAML field is annotated in comments as one of:
 
 Command-line overrides are saved to `resolved_config.yaml` in the output folder.
 
-## Citation
-
-Citation metadata are provided in [`CITATION.cff`](CITATION.cff). Add the final
-journal name, DOI, volume, and pages after publication.
-
 ## License
 
 The included notice reserves rights while the author selects a release license.
