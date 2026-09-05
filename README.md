@@ -1,7 +1,7 @@
 # TRACE-MAP
 
 Implementation for Trust-Aware Attribution and Counterfactual Credibility in Language-Guided Multi-Agent
-Economic Policy Learning.”**
+Economic Policy Learning.
 
 TRACE-MAP studies language-guided economic policy learning in a partially
 observable game with one government and heterogeneous households. It treats
